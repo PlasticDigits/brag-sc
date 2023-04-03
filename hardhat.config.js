@@ -25,9 +25,8 @@ module.exports = {
   networks: {
     hardhat: {
       forking: {
-        url: `https://bsc-mainnet.nodereal.io/v1/${networkConfig.noderealRpcKey}`,
-        blockNumber: 19620000 
-      }
+        url: `https://rpc.ankr.com/bsc`//`https://bsc.getblock.io/mainnet/?api_key=${networkConfig.noderealRpcKey}`
+      },
     },
     rinkeby: {
       url: `https://eth-rinkeby.alchemyapi.io/v2/${networkConfig.rpcKey}`,

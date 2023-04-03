@@ -141,12 +141,12 @@ contract BRAG is
         uint256 wadToSend = availableWadToSend();
         totalCzusdSpent += wadToSend;
         czusd.approve(address(ammRouter), wadToSend);
-        address[] memory path = new address[](4);
+        address[] memory path = new address[](3);
         path[0] = address(czusd);
         path[1] = ammRouter.WETH(); //BNB
         path[2] = address(BTCB); //BTCB
         ammRouter.swapExactTokensForTokensSupportingFeeOnTransferTokens(
-            czusd.balanceOf(address(this)),
+            wadToSend,
             0,
             path,
             address(this),
