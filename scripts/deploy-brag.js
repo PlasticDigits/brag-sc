@@ -25,23 +25,23 @@ function delay(ms) {
 async function main() {
   const czusd = await ethers.getContractAt("CZUsd", CZUSD);
   const pcsRouter = await ethers.getContractAt("IAmmRouter02", PCS_ROUTER);
-  const brag = await ethers.getContractAt("BRAG", "0x2F4DB7787F16CBC7D5e23aCDfc8b450243eDd26B");
-  const autoRewardPool = await ethers.getContractAt("AutoRewardPool", "0x9dd1b756d8FF5Fcac10cf66C3aF04bF47dCd44eC");
+  /*const brag = await ethers.getContractAt("BRAG", "0x48c2bc3d0c63174B811aD4fa09b45cC039578aDb");*/
+  const autoRewardPool = await ethers.getContractAt("AutoRewardPool", "0x5EdF8F1dEDD435b2c75ade5699d8315246565454");
 
-  /* const AutoRewardPool = await ethers.getContractFactory("AutoRewardPool");
-   const autoRewardPool = await AutoRewardPool.deploy();
-   await autoRewardPool.deployed();
-   console.log("autoRewardPool sc:", autoRewardPool.address);
-   console.log("waiting 15 seconds...");
-   await delay(15000);
-   const Brag = await ethers.getContractFactory("BRAG");
-   const brag = await Brag.deploy(CZUSD, PCS_ROUTER, PCS_FACTORY, autoRewardPool.address, BASE_CZUSD_LOCKED, TOTAL_SUPPLY, TEAM_ADDR)
-   await brag.deployed();
-   console.log("brag sc:", brag.address);
-   console.log("waiting 15 seconds...");
-   await delay(15000);
- 
-   console.log("initialize autoRewardPool..");
+  /*const AutoRewardPool = await ethers.getContractFactory("AutoRewardPool");
+  const autoRewardPool = await AutoRewardPool.deploy();
+  await autoRewardPool.deployed();
+  console.log("autoRewardPool sc:", autoRewardPool.address);
+  console.log("waiting 15 seconds...");
+  await delay(15000);*/
+  const Brag = await ethers.getContractFactory("BRAG");
+  const brag = await Brag.deploy(CZUSD, PCS_ROUTER, PCS_FACTORY, autoRewardPool.address, BASE_CZUSD_LOCKED, TOTAL_SUPPLY, TEAM_ADDR)
+  await brag.deployed();
+  console.log("brag sc:", brag.address);
+  console.log("waiting 15 seconds...");
+  await delay(15000);
+
+  console.log("initialize autoRewardPool..");
   const bragCzusdPair_address = await brag.ammCzusdPair();
   autoRewardPool.initialize(brag.address, bragCzusdPair_address);
   console.log("waiting 15 seconds...");
@@ -54,7 +54,7 @@ async function main() {
   console.log("approve brag for liq");
   await brag.approve(PCS_ROUTER, ethers.constants.MaxUint256);
   console.log("waiting 15 seconds...");
-  await delay(15000);*/
+  await delay(15000);
   console.log("add liq");
   await pcsRouter.addLiquidity(
     czusd.address,
